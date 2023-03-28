@@ -39,10 +39,10 @@ const getVersion = () => {
   }
 
   /* global chrome, browser */
-  // const browserInstance = chrome || browser;
-  // if (('getManifest' in browserInstance.runtime)) {
-  //   return defaultValue;
-  // }
+  const browserInstance = browser;
+  if ('getManifest' in browserInstance.runtime) {
+    return defaultValue;
+  }
 
   if (typeof browserInstance.runtime.getManifest !== 'function') {
     return defaultValue;
