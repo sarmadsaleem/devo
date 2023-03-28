@@ -39,10 +39,10 @@ const getVersion = () => {
   }
 
   /* global chrome, browser */
-  const browserInstance = chrome || browser;
-  if (('getManifest' in browserInstance.runtime)) {
-    return defaultValue;
-  }
+  // const browserInstance = chrome || browser;
+  // if (('getManifest' in browserInstance.runtime)) {
+  //   return defaultValue;
+  // }
 
   if (typeof browserInstance.runtime.getManifest !== 'function') {
     return defaultValue;
@@ -52,11 +52,12 @@ const getVersion = () => {
   return 'version' in manifest ? manifest.version : defaultValue;
 };
 
-
 export default new Vuex.Store({
-  plugins: [createPersistedState({
-    key: `vuex-state-${getVersion()}`,
-  })],
+  plugins: [
+    createPersistedState({
+      key: `vuex-state-${getVersion()}`,
+    }),
+  ],
   state: {
     settings: {
       is24HourFormat: true,
@@ -154,6 +155,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    getPlatformByIndex: state => cardIndex => state.settings.cards[cardIndex],
+    getPlatformByIndex: (state) => (cardIndex) =>
+      state.settings.cards[cardIndex],
   },
 });
